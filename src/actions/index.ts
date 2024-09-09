@@ -3,6 +3,7 @@ import { z } from 'astro:schema';
 
 export const server = {
   getGreeting: defineAction({
+    accept: "form",
     input: z.object({
       name: z.string(),
     }),

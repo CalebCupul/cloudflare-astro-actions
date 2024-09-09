@@ -1,15 +1,23 @@
 ---
+
 ---
 
-<button>Get greeting</button>
+<form action="post">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" />
+  <button type="submit">Submit</button>
+</form>
 
 <script>
-import { actions } from 'astro:actions';
+  import { actions } from "astro:actions";
 
-const button = document.querySelector('button');
-button?.addEventListener('click', async () => {
-  // Show alert pop-up with greeting from action
-  const { data, error } = await actions.getGreeting({ name: "Houston" });
-  if (!error) alert(data);
-})
+  const button = document.querySelector("button");
+  button?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const form = (e.target as HTMLElement).closest("form")!;
+    const formData = new FormData(form);
+    // Show alert pop-up with greeting from action
+    const { error, data} = await actions.getGreeting(formData);
+    if (!error) alert(data);
+  });
 </script>
